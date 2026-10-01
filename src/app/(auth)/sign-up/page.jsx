@@ -1,5 +1,5 @@
 "use client";
-import { signUp } from "@/lib/auth-client";
+import { signIn, signUp } from "@/lib/auth-client";
 import { Button, Description, FieldError, Form, Input, Label, TextField } from "@heroui/react";
 
 
@@ -19,8 +19,21 @@ const SignUpPage = () => {
             password: data.password
         });
 
-        console.log(resData, error)
+        console.log("after varify email",resData, error)
     };
+    const handelGoogleSingIn = async()=>{
+        const resData = await signIn.social({
+            provider:"google"
+        }) 
+        console.log("success",resData)
+
+    }
+    const handelGitHubSingIn=async()=>{
+        const resData = await signIn.social({
+            provider:"github"
+        })
+        
+    }
 
     return (
         <div>
@@ -89,6 +102,11 @@ const SignUpPage = () => {
                     </Button>
                 </div>
             </Form>
+
+            <p>OR</p>
+            <Button onClick={handelGoogleSingIn}>Sign In with Google</Button>
+            <p>OR</p>
+            <Button onClick={handelGitHubSingIn}>Sign In  with github</Button>
         </div>
     );
 };
